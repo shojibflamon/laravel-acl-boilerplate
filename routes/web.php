@@ -42,15 +42,26 @@ Route::group(['middleware' => 'admin'], function() {
     
 });*/
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function (){
-    Route::namespace('Auth')->middleware('guest:admin')->group(function (){
-//        Login Route
-        Route::get('login','AuthenticatedSessionController@create')->name('login');
-        Route::post('login','AuthenticatedSessionController@store')->name('adminlogin');
-        
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    
+    Route::namespace('Auth')->middleware('guest:admin')->group(function () {
+        /*
+         * ----------------------------------------------------------------
+         * LOGIN ROUTES
+         * ----------------------------------------------------------------
+         * */
+        Route::get('login', 'AuthenticatedSessionController@create')->name('login');
+        Route::post('login', 'AuthenticatedSessionController@store')->name('login.submit');
     });
-    Route::middleware('admin')->group(function (){
-        Route::get('dashboard','HomeController@index')->name('dashboard');
-        Route::post('logout','Auth\AuthenticatedSessionController@destroy')->name('logout');
+    
+    Route::middleware('admin')->group(function () {
+        /*
+        * ----------------------------------------------------------------
+        * DASHBOARD ROUTES
+        * ----------------------------------------------------------------
+        * */
+        Route::get('dashboard', 'HomeController@index')->name('dashboard');
+        Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
     });
+    
 });
