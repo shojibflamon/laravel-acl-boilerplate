@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -14,11 +16,28 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = [
+        $admin = Admin::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin')
-        ];
-        Admin::create($admin);
+        ]);
+        
+        $support = Admin::create([
+            'name' => 'Support',
+            'email' => 'support@support.com',
+            'password' => bcrypt('support')
+        ]);
+        
+        $adminRole = Role::create(['name' => 'admin']);
+        $supportRole = Role::create(['name' => 'support']);
+        
+        $adminPermission = Permission::create(['name' => 'can-do-anything']);
+        $supportPermission = Permission::create(['name' => 'only-view']);
+        
+        $adminRole->givePermissionTo($adminPermission);
+        $adminPermission->assignRole($adminRole);
+        
+        $supportRole->givePermissionTo($supportPermission);
+        $supportPermission->assignRole($supportRole);
     }
 }
