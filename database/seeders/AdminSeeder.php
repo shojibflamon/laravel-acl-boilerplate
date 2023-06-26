@@ -28,16 +28,16 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('support')
         ]);
         
-        $adminRole = Role::create(['name' => 'admin']);
-        $supportRole = Role::create(['name' => 'support']);
+        $supportRole = Role::create(['guard_name' => 'admin', 'name' => 'support']);
+        $adminRole = Role::create(['guard_name' => 'admin', 'name' => 'super-admin']);
         
-        $adminPermission = Permission::create(['name' => 'can-do-anything']);
-        $supportPermission = Permission::create(['name' => 'only-view']);
-        
-        $adminRole->givePermissionTo($adminPermission);
-        $adminPermission->assignRole($adminRole);
+        $adminPermission = Permission::create(['guard_name' => 'admin', 'name' => 'can-do-anything']);
+        $supportPermission = Permission::create(['guard_name' => 'admin', 'name' => 'only-view']);
         
         $supportRole->givePermissionTo($supportPermission);
-        $supportPermission->assignRole($supportRole);
+        $adminRole->givePermissionTo($adminPermission);
+        
+        $admin->assignRole($adminRole);
+        $support->assignRole($supportRole);
     }
 }
