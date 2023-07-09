@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,7 +62,16 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         * ----------------------------------------------------------------
         * */
         Route::get('dashboard', 'HomeController@index')->name('dashboard');
+        Route::get('default', 'HomeController@default')->name('default');
         Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
+        
+        /*
+        * ----------------------------------------------------------------
+        * PERMISSION ROUTES
+        * ----------------------------------------------------------------
+        * */
+        Route::resource('roles', "RoleController");
+        Route::resource('permissions', "PermissionController");
     });
     
 });
