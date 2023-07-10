@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -42,8 +43,10 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $models = $this->getModels();
+     
+        $permissions = Permission::all();
         
-        return view($this->themeLayout.'roles.show', compact('role', 'models'));
+        return view($this->themeLayout.'roles.show', compact('role', 'permissions', 'models'));
     }
     
     public function update(UpdateRoleRequest $request, Role $role)

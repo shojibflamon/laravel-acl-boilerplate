@@ -55,6 +55,25 @@
                                 <input type="text" name="name" value="{{ $role->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                        placeholder="Role Name">
 
+                                Attached Permissions:
+                                @if($role->permissions)
+                                    @foreach($role->permissions as $permission)
+                                        <span>{{ $permission->name }}</span>
+                                    @endforeach
+                                @endif
+
+                                <div class="mb-3">
+                                    <label for="permissions" class="form-label">Select Permission</label>
+                                    <select name="selectedPermission" class="form-select" id="permissions">
+                                        <option selected="" disabled="">Select your permission</option
+                                        @foreach($permissions as $permission)
+                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @endif
