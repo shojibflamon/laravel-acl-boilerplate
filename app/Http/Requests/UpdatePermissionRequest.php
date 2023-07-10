@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Spatie\Permission\Models\Permission;
 
-class StoreRoleRequest extends FormRequest
+class UpdatePermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +24,7 @@ class StoreRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:roles|min:3|max:50',
+            'name' => 'required|unique:permissions|min:3|max:50',
         ];
-        
     }
-    
 }

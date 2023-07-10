@@ -45,14 +45,14 @@
                             </div>
                         @endif
 
-                        <h6 class="card-title">Create New Permission</h6>
-                        <form action="{{ route('admin.permissions.store') }}" method="post" class="forms-sample">
+                        <h6 class="card-title">Update Permission</h6>
+                        <form action="{{ route('admin.permissions.update', $permission) }}" method="post" class="forms-sample">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name"
-                                       autocomplete="off"
+                                <input type="text" name="name" value="{{ $permission->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                        placeholder="Permission Name">
 
                                 @if ($errors->has('name'))

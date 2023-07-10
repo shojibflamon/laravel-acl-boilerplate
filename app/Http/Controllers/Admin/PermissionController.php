@@ -4,31 +4,60 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
-use Illuminate\Support\Facades\App;
+use App\Http\Requests\UpdatePermissionRequest;
 use Spatie\Permission\Models\Permission;
 
 
 class PermissionController extends Controller
 {
+    private $themeLayout;
+    
+    public function __construct()
+    {
+        $this->themeLayout = app()['themeLayout'];
+    }
+    
+    private function getModels()
+    {
+        return Permission::WhereNotIn('name', ['super-admin'])->orderBy('updated_at', 'desc')->paginate(5);
+    }
     public function index()
     {
-        $models = Permission::paginate(5);
+        $models = $this->getModels();
 
-        $themeLayout = App::make('themeLayout');
-        
-        return view($themeLayout.'permissions.index', compact('models'));
+        return view($this->themeLayout.'permissions.index', compact('models'));
     }
     
     public function store(StorePermissionRequest $request)
     {
-        // Retrieve validated data from the request
-        $data = $request->validated();
+        $validated = $request->validated();
         
-        $data['guard_name'] = 'admin';
+        $validated['guard_name'] = 'admin';
         
-        Permission::create($data);
+        Permission::create($validated);
         
-        // Redirect to a success page or perform other actions
         return redirect()->route('admin.permissions.index')->with('success', 'Data saved successfully.');
+    }
+    
+    public function show(Permission $permission)
+    {
+        $models = $this->getModels();
+        
+        return view($this->themeLayout.'permissions.show', compact('permission', 'models'));
+    }
+    
+    public function update(UpdatePermissionRequest $request, Permission $permission)
+    {
+        $validated = $request->validated();
+        
+        $permission->update($validated);
+        
+        return redirect()->route('admin.permissions.index')->with('success', 'Data updated successfully.');
+    }
+    
+    public function destroy(Permission $permission)
+    {
+        $permission->delete();
+        return redirect()->route('admin.permissions.index')->with('success', 'Data deleted successfully.');
     }
 }

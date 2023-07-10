@@ -5,13 +5,13 @@
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Permissions</li>
+                <li class="breadcrumb-item active" aria-current="page">Roles</li>
             </ol>
         </nav>
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Permissions</h4>
+                <h4 class="mb-3 mb-md-0">Roles</h4>
             </div>
 
             <div class="d-flex align-items-center flex-wrap text-nowrap">
@@ -45,15 +45,15 @@
                             </div>
                         @endif
 
-                        <h6 class="card-title">Create New Permission</h6>
-                        <form action="{{ route('admin.permissions.store') }}" method="post" class="forms-sample">
+                        <h6 class="card-title">Update Role</h6>
+                        <form action="{{ route('admin.roles.update', $role) }}" method="post" class="forms-sample">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name"
-                                       autocomplete="off"
-                                       placeholder="Permission Name">
+                                <input type="text" name="name" value="{{ $role->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
+                                       placeholder="Role Name">
 
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        @include($themeLayout.'permissions.list')
+        @include($themeLayout.'roles.list')
 
     </div>
 @endsection
