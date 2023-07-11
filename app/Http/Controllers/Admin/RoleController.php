@@ -37,7 +37,7 @@ class RoleController extends Controller
         
         Role::create($validated);
         
-        return redirect()->back()->with('success', 'Data saved successfully.');
+        return redirect()->back()->withSuccess('Data saved successfully.');
     }
     
     public function show(Role $role)
@@ -55,12 +55,12 @@ class RoleController extends Controller
         
         $role->update($validated);
         
-        return redirect()->route('admin.roles.index')->with('success', 'Data updated successfully.');
+        return redirect()->route('admin.roles.index')->withSuccess('Data updated successfully.');
     }
     
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('admin.roles.index')->with('success', 'Data deleted successfully.');
+        return redirect()->route('admin.roles.index')->withSuccess('Data deleted successfully.');
     }
 }

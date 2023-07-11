@@ -36,7 +36,7 @@ class PermissionController extends Controller
         
         Permission::create($validated);
         
-        return redirect()->back()->with('success', 'Data saved successfully.');
+        return redirect()->back()->withSuccess('Data saved successfully.');
     }
     
     public function show(Permission $permission)
@@ -52,12 +52,12 @@ class PermissionController extends Controller
         
         $permission->update($validated);
         
-        return redirect()->route('admin.permissions.index')->with('success', 'Data updated successfully.');
+        return redirect()->route('admin.permissions.index')->withSuccess('Data updated successfully.');
     }
     
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return redirect()->route('admin.permissions.index')->with('success', 'Data deleted successfully.');
+        return redirect()->route('admin.permissions.index')->withSuccess('Data deleted successfully.');
     }
 }
