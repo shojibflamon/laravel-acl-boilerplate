@@ -37,7 +37,7 @@ class RoleController extends Controller
         
         Role::create($validated);
         
-        return redirect()->route('admin.roles.index')->with('success', 'Data saved successfully.');
+        return redirect()->back()->with('success', 'Data saved successfully.');
     }
     
     public function show(Role $role)

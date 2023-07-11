@@ -39,11 +39,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+                        <x-noble-ui.alert type="success" :message="session('success')"/>
 
                         <h6 class="card-title">Create New Role</h6>
                         <form action="{{ route('admin.roles.store') }}" method="post" class="forms-sample">
@@ -53,6 +49,7 @@
                                 <label for="name">Name</label>
                                 <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                        placeholder="Role Name">
+
 
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>

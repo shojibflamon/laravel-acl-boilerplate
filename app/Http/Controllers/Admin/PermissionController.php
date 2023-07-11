@@ -36,7 +36,7 @@ class PermissionController extends Controller
         
         Permission::create($validated);
         
-        return redirect()->route('admin.permissions.index')->with('success', 'Data saved successfully.');
+        return redirect()->back()->with('success', 'Data saved successfully.');
     }
     
     public function show(Permission $permission)

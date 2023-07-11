@@ -39,11 +39,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+                        <x-noble-ui.alert type="success" :message="session('success')"/>
 
                         <h6 class="card-title">Update Permission</h6>
                         <form action="{{ route('admin.permissions.update', $permission) }}" method="post" class="forms-sample">
