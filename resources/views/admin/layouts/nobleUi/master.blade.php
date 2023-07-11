@@ -27,5 +27,7 @@
 
 @include($themeLayout.'scripts')
 
+@stack('script')
+
 </body>
 </html>

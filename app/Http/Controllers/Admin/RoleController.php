@@ -25,17 +25,21 @@ class RoleController extends Controller
     public function index()
     {
         $models = $this->getModels();
+        $permissions = Permission::all();
         
-        return view($this->themeLayout.'roles.index', compact('models'));
+        return view($this->themeLayout.'roles.index', compact('models','permissions'));
     }
     
     public function store(StoreRoleRequest $request)
     {
         $validated = $request->validated();
         
-        $validated['guard_name'] = 'admin';
+        $role = [
+            'guard_name' => 'admin',
+            'name' => $validated['name'],
+        ];
         
-        Role::create($validated);
+        Role::create($role)->syncPermissions($validated['permissions']);
         
         return redirect()->back()->withSuccess('Data saved successfully.');
     }
@@ -45,15 +49,19 @@ class RoleController extends Controller
         $models = $this->getModels();
      
         $permissions = Permission::all();
+        foreach ($role->permissions as $permission) {
+            $selectedPermission[] = $permission->name;
+        }
         
-        return view($this->themeLayout.'roles.show', compact('role', 'permissions', 'models'));
+        return view($this->themeLayout.'roles.show', compact('role', 'permissions', 'selectedPermission', 'models'));
     }
     
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $validated = $request->validated();
-        
+
         $role->update($validated);
+        $role->syncPermissions($validated['permissions']);
         
         return redirect()->route('admin.roles.index')->withSuccess('Data updated successfully.');
     }
