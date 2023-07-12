@@ -67,11 +67,18 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         
         /*
         * ----------------------------------------------------------------
-        * PERMISSION ROUTES
+        * ROLE & PERMISSION ROUTES
         * ----------------------------------------------------------------
         * */
         Route::resource('roles', "RoleController");
         Route::resource('permissions', "PermissionController");
+        
+        /*
+        * ----------------------------------------------------------------
+        * USERS ROUTES
+        * ----------------------------------------------------------------
+        * */
+        Route::resource('admins', "AdminController");
     });
     
 });

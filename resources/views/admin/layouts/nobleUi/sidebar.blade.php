@@ -33,6 +33,24 @@
                 </a>
             </li>
 
+            <li class="nav-item nav-category">User Management</li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Users</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="users">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.admins.create') }}" class="nav-link">Create User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.admins.index') }}" class="nav-link">All User</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
             <li class="nav-item nav-category">web apps</li>
             <li class="nav-item">

@@ -26,7 +26,7 @@
                         <label for="name">Permissions</label>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="checkAllPermission">
+                                <input type="checkbox" class="form-check-input" id="check-all-permission">
                                 Check All
                                 <i class="input-frame"></i></label>
 
@@ -91,7 +91,7 @@
 
     <script type="text/javascript">
 
-        $("#checkAllPermission").click(function () {
+        $("#check-all-permission").click(function () {
             $('input[type=checkbox]').prop('checked', $(this).is(':checked'));
         });
 
@@ -108,9 +108,9 @@
             //  console.log((countPermissions + countPermissionGroups));
             //  console.log($('input[type="checkbox"]:checked').length);
             if ($('input[type="checkbox"]:checked').length >= (countPermissions + countPermissionGroups)) {
-                $("#checkAllPermission").prop('checked', true);
+                $("#check-all-permission").prop('checked', true);
             } else {
-                $("#checkAllPermission").prop('checked', false);
+                $("#check-all-permission").prop('checked', false);
             }
         }
     </script>

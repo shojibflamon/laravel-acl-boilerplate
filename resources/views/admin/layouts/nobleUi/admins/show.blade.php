@@ -22,18 +22,39 @@
 
                         <x-noble-ui.alert type="success" :message="session('success')"/>
 
-                        <form action="{{ route('admin.roles.update', $role) }}" method="post" class="forms-sample">
+                        <form action="{{ route('admin.admins.update', $admin) }}" method="post" class="forms-sample">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" value="{{ $role->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
+                                <input type="text" name="name" value="{{ $admin->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                        placeholder="Role Name">
 
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @endif
+                            </div>
+
+                            <label for="name">Roles</label>
+                            <div class="form-group">
+                                @foreach($roles as $role)
+
+                                    @php $checked = ''; @endphp
+
+                                    @if(in_array($role,$selectedRoles,true))
+                                        @php $checked = 'checked'; @endphp
+                                    @endif
+
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="roles[]" value="{{ $role }}" class="form-check-input" {{ $checked }} >
+                                            {{ $role }}
+                                            <i class="input-frame"></i></label>
+                                    </div>
+
+                                @endforeach
+
                             </div>
 
                             <div class="form-group">
@@ -50,7 +71,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row check-all-permission">
 
                                 @foreach($permissionGroups as $permissionGroup => $permissions)
                                     <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
@@ -80,7 +101,7 @@
 
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" name="permissions[]" value="{{ $permission }}" class="form-check-input" {{ $checked }} >
+                                                            <input type="checkbox" {{ $checked }} name="permissions[]" value="{{ $permission }}" class="form-check-input">
                                                             {{ $permission }}
                                                             <i class="input-frame"></i></label>
                                                     </div>
@@ -112,9 +133,10 @@
     <script type="text/javascript">
 
         $("#check-all-permission").click(function () {
-            $('input[type=checkbox]').prop('checked', $(this).is(':checked'));
-        });
+            let classCheckBox = $('.check-all-permission' + ' input[type="checkbox"]');
+            classCheckBox.prop('checked', $(this).is(':checked'));
 
+        });
         function checkAll(permissionSet, checkThis) {
             let classCheckBox = $('.' + permissionSet + ' input[type="checkbox"]');
             classCheckBox.prop('checked', checkThis.checked);

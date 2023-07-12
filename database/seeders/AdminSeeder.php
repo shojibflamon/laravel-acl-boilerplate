@@ -29,7 +29,7 @@ class AdminSeeder extends Seeder
         ]);
         
         $supportRole = Role::create(['guard_name' => 'admin', 'name' => 'support']);
-        $adminRole = Role::create(['guard_name' => 'admin', 'name' => 'super-admin']);
+        $adminRole = Role::create(['guard_name' => 'admin', 'name' => 'Super Admin']);
         
         $adminPermission = Permission::create(['guard_name' => 'admin', 'name' => 'can-do-anything']);
         $supportPermission = Permission::create(['guard_name' => 'admin', 'name' => 'only-view']);

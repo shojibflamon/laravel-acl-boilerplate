@@ -19,7 +19,8 @@ class RoleController extends Controller
     
     private function getModels()
     {
-        return Role::WhereNotIn('name', ['super-admin'])->orderBy('updated_at', 'desc')->paginate(5);
+//        return Role::WhereNotIn('name', ['super-admin'])->orderBy('updated_at', 'desc')->paginate(5);
+        return Role::orderBy('updated_at', 'desc')->paginate(5);
     }
     
     public function index()
@@ -66,7 +67,7 @@ class RoleController extends Controller
             $group = explode('-', $permission->name)[0];
             $permissionGroups[$group][] = $permission->name;
         }
-
+        
         return view($this->themeLayout.'roles.show', compact('models', 'role', 'permissionGroups', 'selectedPermission'));
     }
     
