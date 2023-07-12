@@ -43,7 +43,7 @@ class PermissionController extends Controller
     {
         $models = $this->getModels();
         
-        return view($this->themeLayout.'permissions.show', compact('permission', 'models'));
+        return view($this->themeLayout.'permissions.show', compact('models', 'permission'));
     }
     
     public function update(UpdatePermissionRequest $request, Permission $permission)

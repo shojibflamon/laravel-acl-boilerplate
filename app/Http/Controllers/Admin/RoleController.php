@@ -27,7 +27,14 @@ class RoleController extends Controller
         $models = $this->getModels();
         $permissions = Permission::all();
         
-        return view($this->themeLayout.'roles.index', compact('models','permissions'));
+        $permissionGroups = [];
+        
+        foreach ($permissions as $permission) {
+            $group = explode('-', $permission->name)[0];
+            $permissionGroups[$group][] = $permission->name;
+        }
+        
+        return view($this->themeLayout.'roles.index', compact('models', 'permissions', 'permissionGroups'));
     }
     
     public function store(StoreRoleRequest $request)
@@ -47,19 +54,27 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $models = $this->getModels();
-     
+        
         $permissions = Permission::all();
+        $selectedPermission = [];
         foreach ($role->permissions as $permission) {
             $selectedPermission[] = $permission->name;
         }
         
-        return view($this->themeLayout.'roles.show', compact('role', 'permissions', 'selectedPermission', 'models'));
+        $permissionGroups = [];
+        
+        foreach ($permissions as $permission) {
+            $group = explode('-', $permission->name)[0];
+            $permissionGroups[$group][] = $permission->name;
+        }
+
+        return view($this->themeLayout.'roles.show', compact('models', 'role', 'permissions', 'permissionGroups', 'selectedPermission'));
     }
     
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $validated = $request->validated();
-
+        
         $role->update($validated);
         $role->syncPermissions($validated['permissions']);
         

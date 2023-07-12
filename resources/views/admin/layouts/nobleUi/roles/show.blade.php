@@ -40,136 +40,62 @@
                                 <label for="name">Permissions</label>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" id="checkPermissionAll">
+                                        <input type="checkbox" class="form-check-input" id="checkAllPermission">
                                         Check All
                                         <i class="input-frame"></i></label>
+
+                                    @if ($errors->has('permissions'))
+                                        <span class="text-danger">{{ $errors->first('permissions') }}</span>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
 
-                                    <div class="card flex-fill">
+                                @foreach($permissionGroups as $permissionGroup => $permissions)
+                                    <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
 
-                                        <div class="card-header">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" onclick="checkAll('permissionSet-1', this)">
-                                                        Check All
-                                                        <i class="input-frame"></i></label>
-                                                </div>
-                                            </div>
-                                        </div> {{--card-header--}}
+                                        <div class="card flex-fill">
 
-                                        <div class="card-body permissionSet-1">
-                                            <h5 class="card-title">Orders</h5>
-                                            @foreach($permissions as $permission)
-                                                @php
-                                                    $name = explode('-',$permission->name)[0];
-                                                @endphp
-                                                @if ($name === 'Order')
-                                                    @if(in_array($permission->name,$selectedPermission))
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input type="checkbox" checked name="permissions[]" value="{{ $permission->name }}" class="form-check-input">
-                                                                {{ $permission->name }}
-                                                                <i class="input-frame"></i></label>
-                                                        </div>
-                                                    @else
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="form-check-input">
-                                                                {{ $permission->name }}
-                                                                <i class="input-frame"></i></label>
-                                                        </div>
-                                                   @endif
-                                                @endif
-                                            @endforeach
-                                        </div> {{--card-body--}}
-
-                                    </div> {{--card--}}
-
-                                </div> {{--permission block--}}
-
-
-                                <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
-
-                                    <div class="card flex-fill">
-
-                                        <div class="card-header">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" onclick="checkAll('permissionSet-2', this)">
-                                                        Check All Permissions
-                                                        <i class="input-frame"></i></label>
-                                                </div>
-                                            </div>
-                                        </div> {{--card-header--}}
-
-                                        <div class="card-body permissionSet-2">
-                                            <h5 class="card-title">Categories</h5>
-                                            @foreach($permissions as $permission)
-                                                @php
-                                                    $name = explode('-',$permission->name)[0];
-                                                @endphp
-                                                @if ($name === 'Category')
+                                            <div class="card-header">
+                                                <div class="form-group">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="form-check-input">
-                                                            {{ $permission->name }}
+                                                            <input type="checkbox" class="form-check-input" onclick="checkAll('{{ $permissionGroup }}-group', this)">
+                                                            Check All ({{ $permissionGroup }})
                                                             <i class="input-frame"></i></label>
                                                     </div>
-                                                @endif
-                                            @endforeach
-                                        </div> {{--card-body--}}
-
-                                    </div> {{--card--}}
-
-                                </div> {{--permission block--}}
-
-
-                                <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
-
-                                    <div class="card flex-fill">
-
-                                        <div class="card-header">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" onclick="checkAll('permissionSet-3', this)">
-                                                        Check All Permissions
-                                                        <i class="input-frame"></i></label>
                                                 </div>
-                                            </div>
-                                        </div> {{--card-header--}}
+                                            </div> {{--card-header--}}
 
-                                        <div class="card-body permissionSet-3">
-                                            <h5 class="card-title">Notifications</h5>
-                                            @foreach($permissions as $permission)
-                                                @php
-                                                    $name = explode('-',$permission->name)[0];
-                                                @endphp
-                                                @if ($name === 'Notification')
+                                            <div class="card-body {{ $permissionGroup }}-group">
+                                                <h5 class="card-title">{{ $permissionGroup }}</h5>
+                                                @foreach($permissions as $permission)
+
+                                                    @php $checked = ''; @endphp
+
+                                                    @if(in_array($permission,$selectedPermission,true))
+                                                        @php $checked = 'checked'; @endphp
+                                                    @endif
+
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="form-check-input">
-                                                            {{ $permission->name }}
+                                                            <input type="checkbox" {{ $checked }} name="permissions[]" value="{{ $permission }}" class="form-check-input">
+                                                            {{ $permission }}
                                                             <i class="input-frame"></i></label>
                                                     </div>
-                                                @endif
-                                            @endforeach
 
-                                        </div> {{--card-body--}}
+                                                @endforeach
+                                            </div> {{--card-body--}}
 
-                                    </div> {{--card--}}
+                                        </div> {{--card--}}
 
-                                </div> {{--permission block--}}
+                                    </div> {{--permission block--}}
+                                @endforeach
 
                             </div> {{--row--}}
 
-                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -185,14 +111,11 @@
 
     <script type="text/javascript">
 
-        /**
-         * Check all the permissions
-         */
-        $("#checkPermissionAll").click(function(){
+        $("#checkAllPermission").click(function () {
             $('input[type=checkbox]').prop('checked', $(this).is(':checked'));
         });
 
-        function checkAll(permissionSet, checkThis){
+        function checkAll(permissionSet, checkThis) {
             let classCheckBox = $('.' + permissionSet + ' input[type="checkbox"]');
             classCheckBox.prop('checked', checkThis.checked);
 
@@ -204,10 +127,10 @@
             let countPermissionGroups = 26;
             //  console.log((countPermissions + countPermissionGroups));
             //  console.log($('input[type="checkbox"]:checked').length);
-            if($('input[type="checkbox"]:checked').length >= (countPermissions + countPermissionGroups)){
-                $("#checkPermissionAll").prop('checked', true);
-            }else{
-                $("#checkPermissionAll").prop('checked', false);
+            if ($('input[type="checkbox"]:checked').length >= (countPermissions + countPermissionGroups)) {
+                $("#checkAllPermission").prop('checked', true);
+            } else {
+                $("#checkAllPermission").prop('checked', false);
             }
         }
     </script>

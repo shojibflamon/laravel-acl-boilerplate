@@ -12,7 +12,7 @@ class UpdateRoleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class UpdateRoleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $roleId = $this->route('role')->id; // Assuming you have a route parameter for the role ID
         
@@ -43,5 +43,15 @@ class UpdateRoleRequest extends FormRequest
             'name' => 'required|min:3|max:50|unique:roles,id,'.$roleId,
             'permissions' => 'required',
         ];*/
+    }
+    
+    /**
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'permissions.required' => 'Please select at least one permission.',
+        ];
     }
 }

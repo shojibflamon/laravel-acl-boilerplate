@@ -12,7 +12,7 @@ class StoreRoleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,13 +22,21 @@ class StoreRoleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|unique:roles|min:3|max:50',
             'permissions' => 'required',
         ];
-        
     }
     
+    /**
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'permissions.required' => 'Please select at least one permission.',
+        ];
+    }
 }
