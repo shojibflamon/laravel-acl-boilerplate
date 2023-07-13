@@ -39,7 +39,7 @@
                     <div class="row">
 
                         @foreach($permissionGroups as $permissionGroup => $permissions)
-                            <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
+                            <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap grid-margin">
 
                                 <div class="card flex-fill">
 
@@ -75,7 +75,7 @@
 
                     </div> {{--row--}}
 
-                    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
 
             </div>

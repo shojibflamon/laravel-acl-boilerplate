@@ -68,7 +68,7 @@ class AdminController extends Controller
         
         $selectedPermission = $admin->getAllPermissions()->pluck('name')->all();
         
-        return view($this->themeLayout.'admins.show', compact('models', 'admin', 'roles', 'selectedRoles', 'permissionGroups', 'selectedPermission'));
+        return view($this->themeLayout.'admins.show', compact('admin', 'models', 'roles', 'selectedRoles', 'permissionGroups', 'selectedPermission'));
     }
     
     public function edit(Admin $admin)

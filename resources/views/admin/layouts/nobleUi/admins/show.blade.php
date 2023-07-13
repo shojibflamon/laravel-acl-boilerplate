@@ -74,7 +74,7 @@
                             <div class="row check-all-permission">
 
                                 @foreach($permissionGroups as $permissionGroup => $permissions)
-                                    <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap">
+                                    <div class="col-12 col-md-6 col-xl-3 d-flex flex-wrap grid-margin">
 
                                         <div class="card flex-fill">
 
@@ -116,7 +116,7 @@
 
                             </div> {{--row--}}
 
-                            <button type="submit" class="btn btn-primary mt-4">Update</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>
@@ -137,6 +137,7 @@
             classCheckBox.prop('checked', $(this).is(':checked'));
 
         });
+
         function checkAll(permissionSet, checkThis) {
             let classCheckBox = $('.' + permissionSet + ' input[type="checkbox"]');
             classCheckBox.prop('checked', checkThis.checked);
