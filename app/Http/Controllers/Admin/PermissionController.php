@@ -15,6 +15,12 @@ class PermissionController extends Controller
     public function __construct()
     {
         $this->themeLayout = app()['themeLayout'];
+        
+        $this->middleware('permission:Permission-create,admin')->only('store');
+        $this->middleware('permission:Permission-list,admin')->only('index');
+        $this->middleware('permission:Permission-show,admin')->only('show');
+        $this->middleware('permission:Permission-update,admin')->only('update');
+        $this->middleware('permission:Permission-delete,admin')->only('destroy');
     }
     
     private function getModels()

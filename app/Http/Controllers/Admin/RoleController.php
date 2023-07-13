@@ -15,11 +15,17 @@ class RoleController extends Controller
     public function __construct()
     {
         $this->themeLayout = app()['themeLayout'];
+        
+        $this->middleware('permission:Role-create,admin')->only('store');
+        $this->middleware('permission:Role-list,admin')->only('index');
+        $this->middleware('permission:Role-show,admin')->only('show');
+        $this->middleware('permission:Role-update,admin')->only('update');
+        $this->middleware('permission:Role-delete,admin')->only('destroy');
     }
     
     private function getModels()
     {
-//        return Role::WhereNotIn('name', ['super-admin'])->orderBy('updated_at', 'desc')->paginate(5);
+//        return Role::WhereNotIn('name', ['Super-Admin'])->orderBy('updated_at', 'desc')->paginate(5);
         return Role::orderBy('updated_at', 'desc')->paginate(5);
     }
     

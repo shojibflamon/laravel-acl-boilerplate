@@ -68,6 +68,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        /*
+         * ADDED BY AUTHOR
+         * */
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,

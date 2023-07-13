@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class AdminSeeder extends Seeder
+class PermissionsDemoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,17 +19,17 @@ class AdminSeeder extends Seeder
         $admin = Admin::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('admin')
+            'password' => bcrypt('123123123')
         ]);
         
         $support = Admin::create([
             'name' => 'Support',
             'email' => 'support@support.com',
-            'password' => bcrypt('support')
+            'password' => bcrypt('123123123')
         ]);
         
+        $adminRole = Role::create(['guard_name' => 'admin', 'name' => 'Super-Admin']);
         $supportRole = Role::create(['guard_name' => 'admin', 'name' => 'support']);
-        $adminRole = Role::create(['guard_name' => 'admin', 'name' => 'Super Admin']);
         
         $adminPermission = Permission::create(['guard_name' => 'admin', 'name' => 'can-do-anything']);
         $supportPermission = Permission::create(['guard_name' => 'admin', 'name' => 'only-view']);
