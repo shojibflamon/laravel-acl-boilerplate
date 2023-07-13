@@ -32,11 +32,28 @@ class AdminController extends Controller
     
     public function create()
     {
-        //
+        $roles = Role::pluck('name');
+        
+        return view($this->themeLayout.'admins.create', compact( 'roles'));
+        
     }
     
     public function store(StoreAdminRequest $request)
     {
+        $validated = $request->validated();
+
+        $admin = Admin::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
+        
+        if (!isset($validated['roles'])) {
+            $validated['roles'] = [];
+        }
+        $admin->syncRoles($validated['roles']);
+        
+        return redirect()->back()->withSuccess('Data saved successfully.');
     }
     
     public function show(Admin $admin)

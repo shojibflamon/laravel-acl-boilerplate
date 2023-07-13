@@ -36,6 +36,17 @@
                                 @endif
                             </div>
 
+                            <div class="form-group">
+                                <label for="name">Email Address</label>
+                                <input type="email" name="email" value="{{ $admin->email }}" class="form-control @error('email') is-invalid @enderror" id="email"
+                                       autocomplete="off"
+                                       placeholder="example@email.com">
+
+                                @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
+                            </div>
+
                             <label for="name">Roles</label>
                             <div class="form-group">
                                 @foreach($roles as $role)
@@ -123,7 +134,7 @@
             </div>
         </div>
 
-        @include($themeLayout.'roles.list')
+        @include($themeLayout.'admins.list')
 
     </div>
 @endsection

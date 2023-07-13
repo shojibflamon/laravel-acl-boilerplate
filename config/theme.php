@@ -12,4 +12,7 @@ return [
             'layout' => 'admin.layouts.nobleUi.',
         ],
     ],
+    'validationRules' => [
+        'email' => 'rfc'
+    ]
 ];

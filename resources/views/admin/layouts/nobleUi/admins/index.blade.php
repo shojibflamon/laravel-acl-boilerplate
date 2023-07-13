@@ -12,7 +12,7 @@
             @include($themeLayout.'partials.top-right-items')
         </div>
 
-        @include($themeLayout.'admins.create')
+        {{--@include($themeLayout.'admins.create')--}}
         @include($themeLayout.'admins.list')
 
     </div>

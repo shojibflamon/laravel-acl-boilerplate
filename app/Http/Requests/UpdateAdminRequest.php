@@ -33,6 +33,11 @@ class UpdateAdminRequest extends FormRequest
                 'min:3',
                 'max:50',
             ],
+            'email' => [
+                'required',
+                'email:'.config('theme.validationRules.email'),
+                Rule::unique('admins')->ignore($id),
+            ],
             'roles' => ['sometimes'],
             'permissions' => ['sometimes'],
         ];

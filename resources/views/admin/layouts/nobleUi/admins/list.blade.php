@@ -10,6 +10,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Roles</th>
                             <th>Email Verified At</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -22,6 +23,7 @@
                                 <th>{{ $model->id }}</th>
                                 <td>{{ $model->name }}</td>
                                 <td>{{ $model->email }}</td>
+                                <td>{{ join(', ', $model->getRoleNames()->all()) }}</td>
                                 <td>{{ $model->email_verified_at }}</td>
                                 <td>{{ $model->created_at->format('F j, Y h:i A') }}</td>
                                 <td>{{ $model->updated_at->format('F j, Y h:i A') }}</td>

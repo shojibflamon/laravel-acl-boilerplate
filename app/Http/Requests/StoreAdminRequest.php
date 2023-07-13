@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAdminRequest extends FormRequest
 {
@@ -13,9 +14,9 @@ class StoreAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
-
+    
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +25,26 @@ class StoreAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required',
+                Rule::unique('admins'),
+                'min:3',
+                'max:50',
+            ],
+            'email' => [
+                'required',
+                'email:'.config('theme.validationRules.email'),
+                Rule::unique('admins'),
+            ],
+            'roles' => ['sometimes'],
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+            ],
+            'password_confirmation' => [
+                'required',
+            ]
         ];
     }
 }
