@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Admin;
 use Illuminate\Support\Collection;
 
 class PermissionService
@@ -35,5 +36,31 @@ class PermissionService
         */
         
         return $permissionGroups;
+    }
+    
+    /**
+     * @param  Admin  $admin
+     * @param  array  $validated
+     * @return void
+     */
+    public function syncPermissions(Admin $admin, array $validated): void
+    {
+        if (!isset($validated['permissions'])) {
+            $validated['permissions'] = [];
+        }
+        $admin->syncPermissions($validated['permissions']);
+    }
+    
+    /**
+     * @param  Admin  $admin
+     * @param  array  $validated
+     * @return void
+     */
+    public function syncRoles(Admin $admin, array $validated): void
+    {
+        if (!isset($validated['roles'])) {
+            $validated['roles'] = [];
+        }
+        $admin->syncRoles($validated['roles']);
     }
 }

@@ -13,16 +13,18 @@ use Spatie\Permission\Models\Role;
 class AdminController extends Controller
 {
     private $themeLayout;
+    private $permissionService;
     
-    public function __construct()
+    public function __construct(PermissionService $permissionService)
     {
+        $this->permissionService = $permissionService;
+        $this->themeLayout = app()['themeLayout'];
+        
         $this->middleware('permission:Admin-create,admin')->only(['create', 'store']);
         $this->middleware('permission:Admin-list,admin')->only('index');
         $this->middleware('permission:Admin-show,admin')->only('show');
         $this->middleware('permission:Admin-update,admin')->only('update');
         $this->middleware('permission:Admin-delete,admin')->only('destroy');
-        
-        $this->themeLayout = app()['themeLayout'];
     }
     
     private function getModels()
@@ -63,7 +65,7 @@ class AdminController extends Controller
         return redirect()->back()->withSuccess('Data saved successfully.');
     }
     
-    public function show(Admin $admin, PermissionService $permissionService)
+    public function show(Admin $admin)
     {
         $models = $this->getModels();
         
@@ -71,7 +73,7 @@ class AdminController extends Controller
         
         $selectedRoles = $admin->getRoleNames()->all();
         
-        $permissionGroups = $permissionService->getPermissionGroups(Permission::all());
+        $permissionGroups = $this->permissionService->getPermissionGroups(Permission::all());
         
         $selectedPermission = $admin->getAllPermissions()->pluck('name')->all();
         
@@ -89,16 +91,9 @@ class AdminController extends Controller
         
         $admin->update($validated);
         
-        if (!isset($validated['permissions'])) {
-            $validated['permissions'] = [];
-        }
-        $admin->syncPermissions($validated['permissions']);
+        $this->permissionService->syncPermissions($admin, $validated);
         
-        if (!isset($validated['roles'])) {
-            $validated['roles'] = [];
-        }
-        
-        $admin->syncRoles($validated['roles']);
+        $this->permissionService->syncRoles($admin, $validated);
         
         return redirect()->route('admin.admins.index')->withSuccess('Data updated successfully.');
     }
