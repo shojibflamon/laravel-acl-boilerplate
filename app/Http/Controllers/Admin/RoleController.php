@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Services\PermissionService;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
     private $themeLayout;
+    private $permissionService;
     
-    public function __construct()
+    public function __construct(PermissionService $permissionService)
     {
+        $this->permissionService = $permissionService;
         $this->themeLayout = app()['themeLayout'];
         
         $this->middleware('permission:Role-create,admin')->only('store');
@@ -33,11 +36,7 @@ class RoleController extends Controller
     {
         $models = $this->getModels();
         
-        $permissionGroups = [];
-        foreach (Permission::all() as $permission) {
-            $group = explode('-', $permission->name)[0];
-            $permissionGroups[$group][] = $permission->name;
-        }
+        $permissionGroups = $this->permissionService->getPermissionGroups(Permission::all());
         
         return view($this->themeLayout.'roles.index', compact('models', 'permissionGroups'));
     }
@@ -60,11 +59,7 @@ class RoleController extends Controller
     {
         $models = $this->getModels();
         
-        $permissionGroups = [];
-        foreach (Permission::all() as $permission) {
-            $group = explode('-', $permission->name)[0];
-            $permissionGroups[$group][] = $permission->name;
-        }
+        $permissionGroups = $this->permissionService->getPermissionGroups(Permission::all());
         
         $selectedPermission = $role->permissions->pluck('name')->all();
         
@@ -76,6 +71,7 @@ class RoleController extends Controller
         $validated = $request->validated();
         
         $role->update($validated);
+        
         $role->syncPermissions($validated['permissions']);
         
         return redirect()->route('admin.roles.index')->withSuccess('Data updated successfully.');
@@ -84,6 +80,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        
         return redirect()->route('admin.roles.index')->withSuccess('Data deleted successfully.');
     }
 }

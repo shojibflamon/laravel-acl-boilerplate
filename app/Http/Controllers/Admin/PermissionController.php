@@ -38,9 +38,7 @@ class PermissionController extends Controller
     {
         $validated = $request->validated();
         
-        $validated['guard_name'] = 'admin';
-        
-        Permission::create($validated);
+        Permission::create($validated + ['guard_name' => 'admin']);
         
         return redirect()->back()->withSuccess('Data saved successfully.');
     }
@@ -64,6 +62,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
+        
         return redirect()->route('admin.permissions.index')->withSuccess('Data deleted successfully.');
     }
 }

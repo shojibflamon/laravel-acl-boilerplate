@@ -13,6 +13,8 @@
         </div>
 
         {{--@include($themeLayout.'admins.create')--}}
+
+        <x-noble-ui.alert type="success" :message="session('success')"/>
         @include($themeLayout.'admins.list')
 
     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin;
+use App\Services\PermissionService;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -15,12 +16,12 @@ class AdminController extends Controller
     
     public function __construct()
     {
-        $this->middleware('permission:Admin-create,admin')->only(['create','store']);
+        $this->middleware('permission:Admin-create,admin')->only(['create', 'store']);
         $this->middleware('permission:Admin-list,admin')->only('index');
         $this->middleware('permission:Admin-show,admin')->only('show');
         $this->middleware('permission:Admin-update,admin')->only('update');
         $this->middleware('permission:Admin-delete,admin')->only('destroy');
-       
+        
         $this->themeLayout = app()['themeLayout'];
     }
     
@@ -40,14 +41,13 @@ class AdminController extends Controller
     {
         $roles = Role::pluck('name');
         
-        return view($this->themeLayout.'admins.create', compact( 'roles'));
-        
+        return view($this->themeLayout.'admins.create', compact('roles'));
     }
     
     public function store(StoreAdminRequest $request)
     {
         $validated = $request->validated();
-
+        
         $admin = Admin::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -57,12 +57,13 @@ class AdminController extends Controller
         if (!isset($validated['roles'])) {
             $validated['roles'] = [];
         }
+        
         $admin->syncRoles($validated['roles']);
         
         return redirect()->back()->withSuccess('Data saved successfully.');
     }
     
-    public function show(Admin $admin)
+    public function show(Admin $admin, PermissionService $permissionService)
     {
         $models = $this->getModels();
         
@@ -70,24 +71,7 @@ class AdminController extends Controller
         
         $selectedRoles = $admin->getRoleNames()->all();
         
-        $permissionGroups = Permission::all()
-            ->groupBy(function ($permission) {
-                return explode('-', $permission->name)[0];
-            })
-            ->map(function ($permissions) {
-                return $permissions->pluck('name');
-            })
-            ->toArray();
-        
-        /*
-         * Same as above
-         * */
-        /*$permissions = Permission::all();
-        $permissionGroups = [];
-        foreach ($permissions as $permission) {
-            $group = explode('-', $permission->name)[0];
-            $permissionGroups[$group][] = $permission->name;
-        }*/
+        $permissionGroups = $permissionService->getPermissionGroups(Permission::all());
         
         $selectedPermission = $admin->getAllPermissions()->pluck('name')->all();
         
@@ -122,6 +106,7 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
+        
         return redirect()->route('admin.admins.index')->withSuccess('Data deleted successfully.');
     }
 }
