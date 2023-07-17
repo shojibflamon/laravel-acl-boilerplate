@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Permission::observe(PermissionObserver::class);
+//        Permission::observe(PermissionObserver::class);
         
         $themeConfig = config('theme');
         

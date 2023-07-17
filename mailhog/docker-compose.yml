@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  mailhog-smtp:
+    image: mailhog/mailhog
+    container_name: mailhog
+    volumes:
+      - type: volume
+        source: mailhog
+        target: /home/mailhog
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /home/mailhog
+volumes:
+  mailhog:

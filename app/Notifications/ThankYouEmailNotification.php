@@ -19,6 +19,7 @@ class ThankYouEmailNotification extends Notification implements ShouldQueue
      */
     public function __construct($user)
     {
+        dump($user->email);
         $this->user = $user;
     }
 

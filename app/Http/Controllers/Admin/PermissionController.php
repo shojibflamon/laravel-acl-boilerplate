@@ -35,24 +35,26 @@ class PermissionController extends Controller
     }
     public function index()
     {
+        dump(config('mail.mailers.smtp'));
         Permission::create(['name'=>Str::random(4)] + ['guard_name' => 'admin']);
         $models = $this->getModels();
         
         $user = Auth::guard('admin')->user();
+        
         
         // Step 1: Notifiable trait
         $user->notify(new ThankYouEmailNotification($user));
         
         // Step 2: Notification Facade
         // use Illuminate\Support\Facades\Notification;
-        Notification::send($user, new ThankYouEmailNotification($user));
+//        Notification::send($user, new ThankYouEmailNotification($user));
         
         // Step 3: Event
-        dispatch(new AtsEmailJob($user));
+//        dispatch(new AtsEmailJob($user));
         
         // Step 4: Observer
         
-        
+        dd('End');
         
         return view($this->themeLayout.'permissions.index', compact('models'));
     }
