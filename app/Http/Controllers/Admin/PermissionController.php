@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use App\Jobs\AtsEmailJob;
+use App\Models\User;
+use App\Notifications\ThankYouEmailNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 
 
@@ -29,8 +35,25 @@ class PermissionController extends Controller
     }
     public function index()
     {
+        Permission::create(['name'=>Str::random(4)] + ['guard_name' => 'admin']);
         $models = $this->getModels();
-
+        
+        $user = Auth::guard('admin')->user();
+        
+        // Step 1: Notifiable trait
+        $user->notify(new ThankYouEmailNotification($user));
+        
+        // Step 2: Notification Facade
+        // use Illuminate\Support\Facades\Notification;
+        Notification::send($user, new ThankYouEmailNotification($user));
+        
+        // Step 3: Event
+        dispatch(new AtsEmailJob($user));
+        
+        // Step 4: Observer
+        
+        
+        
         return view($this->themeLayout.'permissions.index', compact('models'));
     }
     

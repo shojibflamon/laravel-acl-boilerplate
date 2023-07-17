@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Observers\PermissionObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Permission\Models\Permission;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Permission::observe(PermissionObserver::class);
+        
         $themeConfig = config('theme');
         
         $defaultTheme = $themeConfig['defaultTheme'];
