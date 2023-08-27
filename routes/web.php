@@ -65,6 +65,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('profile', 'ProfileController@show')->name('profile.show');
         Route::put('profile', 'ProfileController@update')->name('profile.update');
         
+        Route::get('change-password', 'ChangePasswordController@show')->name('changePassword.show');
+        Route::put('change-password', 'ChangePasswordController@update')->name('changePassword.update');
+        
         Route::get('default', 'HomeController@default')->name('default');
         Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
         

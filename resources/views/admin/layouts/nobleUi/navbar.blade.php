@@ -220,7 +220,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="javascript:;" class="nav-link">
+                                <a href="{{ route('admin.changePassword.show') }}" class="nav-link">
                                     <i data-feather="user"></i>
                                     <span>@lang('Change Password')</span>
                                 </a>

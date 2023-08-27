@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -12,7 +12,7 @@ class UpdateProfileRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class UpdateProfileRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $id = auth('admin')->user()->id;
         
@@ -35,13 +35,9 @@ class UpdateProfileRequest extends FormRequest
             ],
             'email' => [
                 'required',
-                
                 'email:rfc',
-//                'email:rfc,dns',
-                
                 Rule::unique('admins')->ignore($id),
 //                'unique:admins,email,'.$id,
-                
                 'regex:/^[A-Za-z0-9.@]+$/'   // letters numbers and periods are allowed
             ],
         ];
