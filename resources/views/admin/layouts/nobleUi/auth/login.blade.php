@@ -20,6 +20,13 @@
     <link rel="shortcut icon" href="{{asset('nobleUi')}}/assets/images/favicon.png" />
 </head>
 <body>
+
+<style>
+    .auth-page .auth-left-wrapper {
+        background-image: url("{{ asset('nobleUi/assets/images/login.png') }}");
+    }
+</style>
+
 <div class="main-wrapper">
     <div class="page-wrapper full-page">
         <div class="page-content d-flex align-items-center justify-content-center">
@@ -35,7 +42,7 @@
                             </div>
                             <div class="col-md-8 pl-md-0">
                                 <div class="auth-form-wrapper px-4 py-5">
-                                    <a href="#" class="noble-ui-logo logo-light d-block mb-2">Noble<span>UI</span></a>
+                                    <a href="#" class="noble-ui-logo logo-light d-block mb-2">Global<span>Excellence</span></a>
                                     <h5 class="text-muted font-weight-normal mb-4">Welcome back! Log in to your account.</h5>
                                     <form action="{{ route('admin.login.submit') }}" method="post" class="forms-sample">
                                             @csrf
@@ -62,14 +69,19 @@
                                                 Remember me
                                             </label>
                                         </div>
+
                                         <div class="mt-3">
                                             <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white">Login</button>
+                                            {{--
                                             <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
                                                 <i class="btn-icon-prepend" data-feather="twitter"></i>
                                                 Login with twitter
                                             </button>
+                                            --}}
                                         </div>
+                                        {{--
                                         <a href="register.html" class="d-block mt-3 text-muted">Not a user? Sign up</a>
+                                        --}}
                                     </form>
                                 </div>
                             </div>
