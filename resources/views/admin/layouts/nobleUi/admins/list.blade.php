@@ -7,14 +7,14 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Roles</th>
-                            <th>Email Verified At</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th>Action</th>
+                            <th>@lang('ID')</th>
+                            <th>@lang('Name')</th>
+                            <th>@lang('Email')</th>
+                            <th>@lang('Roles')</th>
+                            <th>@lang('Email Verified At')</th>
+                            <th>@lang('Created At')</th>
+                            <th>@lang('Updated At')</th>
+                            <th>@lang('Action')</th>
                         </tr>
                         </thead>
                         <tbody>

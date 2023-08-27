@@ -2,7 +2,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header">
-                Create New Role
+                @lang('Create New Role')
             </div>
 
             <div class="card-body">
@@ -13,7 +13,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">@lang('Name')</label>
                         <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                placeholder="Role Name">
 
@@ -23,11 +23,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Permissions</label>
+                        <label for="name">@lang('Permissions')</label>
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input type="checkbox" class="form-check-input" id="check-all-permission">
-                                Check All
+                                @lang('Check All')
                                 <i class="input-frame"></i></label>
 
                             @if ($errors->has('permissions'))
@@ -48,7 +48,7 @@
                                             <div class="form-check">
                                                 <label class="form-check-label">
                                                     <input type="checkbox" class="form-check-input" onclick="checkAll('{{ $permissionGroup }}-group', this)">
-                                                    Check All ({{ $permissionGroup }})
+                                                    @lang('Check All') ({{ $permissionGroup }})
                                                     <i class="input-frame"></i></label>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
 
                     </div> {{--row--}}
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">@lang('Submit')</button>
                 </form>
 
             </div>

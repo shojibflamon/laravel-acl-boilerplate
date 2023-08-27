@@ -12,7 +12,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">@lang('Name')</label>
                         <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name"
                                autocomplete="off"
                                placeholder="Permission Name">
@@ -22,7 +22,7 @@
                         @endif
                     </div>
 
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-2">@lang('Submit')</button>
                 </form>
             </div>
         </div>

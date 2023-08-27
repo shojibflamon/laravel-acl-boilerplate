@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Permissions</h4>
+                <h4 class="mb-3 mb-md-0"@lang('Permissions')></h4>
             </div>
 
             @include($themeLayout.'partials.top-right-items')
@@ -16,7 +16,7 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-header">
-                        Update Permission
+                        @lang('Update Permission')
                     </div>
                     <div class="card-body">
 
@@ -27,7 +27,7 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">@lang('Name')</label>
                                 <input type="text" name="name" value="{{ $permission->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                        placeholder="Permission Name">
 
@@ -36,7 +36,7 @@
                                 @endif
                             </div>
 
-                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <button type="submit" class="btn btn-primary mr-2">@lang('Update')</button>
                         </form>
                     </div>
                 </div>

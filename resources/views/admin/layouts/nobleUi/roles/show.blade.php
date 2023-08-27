@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Roles</h4>
+                <h4 class="mb-3 mb-md-0">@lang('Roles')</h4>
             </div>
 
             @include($themeLayout.'partials.top-right-items')
@@ -16,7 +16,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-header">
-                        Update Role
+                        @lang('Update Role')
                     </div>
                     <div class="card-body">
 
@@ -27,7 +27,7 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">@lang('Name')</label>
                                 <input type="text" name="name" value="{{ $role->name }}" class="form-control @error('name') is-invalid @enderror" id="name" autocomplete="off"
                                        placeholder="Role Name">
 
@@ -37,11 +37,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Permissions</label>
+                                <label for="name">@lang('Permissions')</label>
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" id="check-all-permission">
-                                        Check All
+                                        @lang('Check All')
                                         <i class="input-frame"></i></label>
 
                                     @if ($errors->has('permissions'))
@@ -62,7 +62,7 @@
                                                     <div class="form-check">
                                                         <label class="form-check-label">
                                                             <input type="checkbox" class="form-check-input" onclick="checkAll('{{ $permissionGroup }}-group', this)">
-                                                            Check All ({{ $permissionGroup }})
+                                                            @lang('Check All') ({{ $permissionGroup }})
                                                             <i class="input-frame"></i></label>
                                                     </div>
                                                 </div>

@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Permissions</h4>
+                <h4 class="mb-3 mb-md-0">@lang('Permissions')</h4>
             </div>
 
             @include($themeLayout.'partials.top-right-items')

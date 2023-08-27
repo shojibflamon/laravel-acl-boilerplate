@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Admins</h4>
+                <h4 class="mb-3 mb-md-0">@lang('Admins')</h4>
             </div>
 
             @include($themeLayout.'partials.top-right-items')
@@ -16,7 +16,7 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-header">
-                        Create New Admin
+                        @lang('Create New Admin')
                     </div>
                     <div class="card-body">
 
@@ -26,7 +26,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">@lang('Name')</label>
                                 <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name"
                                        autocomplete="off"
                                        placeholder="Name">
@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Email Address</label>
+                                <label for="name">@lang('Email Address')</label>
                                 <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="email"
                                        autocomplete="off"
                                        placeholder="example@email.com">
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="password">@lang('Password')</label>
                                 <input type="password" name="password" value="" class="form-control @error('password') is-invalid @enderror" id="password"
                                        autocomplete="off"
                                        placeholder="Password">
@@ -58,7 +58,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label for="password">Confirm Password</label>
+                                <label for="password">@lang('Confirm Password')</label>
                                 <input type="password" name="password_confirmation" value="" class="form-control @error('password') is-invalid
                                 @enderror" id="password"
                                        autocomplete="off"
@@ -85,7 +85,7 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                            <button type="submit" class="btn btn-primary mr-2">@lang('Submit')</button>
                         </form>
                     </div>
                 </div>
