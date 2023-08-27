@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $themeConfig = config('theme');
+        
+        $defaultTheme = $themeConfig['defaultTheme'];
+        
+        $themeLayout = $themeConfig['themes'][$defaultTheme]['layout'];
+        
+        app()->instance('themeLayout', $themeLayout);
+        
+        View::share(['themeLayout' => $themeLayout]);
     }
 }

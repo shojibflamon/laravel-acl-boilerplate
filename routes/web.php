@@ -42,15 +42,49 @@ Route::group(['middleware' => 'admin'], function() {
     
 });*/
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function (){
-    Route::namespace('Auth')->middleware('guest:admin')->group(function (){
-//        Login Route
-        Route::get('login','AuthenticatedSessionController@create')->name('login');
-        Route::post('login','AuthenticatedSessionController@store')->name('adminlogin');
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    
+    Route::namespace('Auth')->middleware('guest:admin')->group(function () {
+        /*
+         * ----------------------------------------------------------------
+         * LOGIN ROUTES
+         * ----------------------------------------------------------------
+         * */
+        Route::get('login', 'AuthenticatedSessionController@create')->name('login');
+        Route::post('login', 'AuthenticatedSessionController@store')->name('login.submit');
+    });
+    
+    Route::middleware('admin')->group(function () {
+        /*
+        * ----------------------------------------------------------------
+        * DASHBOARD ROUTES
+        * ----------------------------------------------------------------
+        * */
+        Route::get('dashboard', 'HomeController@index')->name('dashboard');
         
+        Route::get('profile', 'ProfileController@show')->name('profile.show');
+        Route::put('profile', 'ProfileController@update')->name('profile.update');
+        
+        Route::get('change-password', 'ChangePasswordController@show')->name('changePassword.show');
+        Route::put('change-password', 'ChangePasswordController@update')->name('changePassword.update');
+        
+        Route::get('default', 'HomeController@default')->name('default');
+        Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
+        
+        /*
+        * ----------------------------------------------------------------
+        * ROLE & PERMISSION ROUTES
+        * ----------------------------------------------------------------
+        * */
+        Route::resource('roles', "RoleController");
+        Route::resource('permissions', "PermissionController");
+        
+        /*
+        * ----------------------------------------------------------------
+        * USERS ROUTES
+        * ----------------------------------------------------------------
+        * */
+        Route::resource('admins', "AdminController");
     });
-    Route::middleware('admin')->group(function (){
-        Route::get('dashboard','HomeController@index')->name('dashboard');
-        Route::post('logout','Auth\AuthenticatedSessionController@destroy')->name('logout');
-    });
+    
 });
