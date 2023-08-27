@@ -198,30 +198,34 @@
                             <img src="https://via.placeholder.com/80x80" alt="">
                         </div>
                         <div class="info text-center">
-                            <p class="name font-weight-bold mb-0">Amiah Burton</p>
-                            <p class="email text-muted mb-3">amiahburton@gmail.com</p>
+                            <p class="name font-weight-bold mb-0">{{ auth('admin')->user()->name }}</p>
+                            <p class="email text-muted mb-3">{{ auth('admin')->user()->email }}</p>
                         </div>
                     </div>
                     <div class="dropdown-body">
                         <ul class="profile-nav p-0 pt-3">
+                            {{--
                             <li class="nav-item">
                                 <a href="pages/general/profile.html" class="nav-link">
                                     <i data-feather="user"></i>
                                     <span>Profile</span>
                                 </a>
                             </li>
+                            --}}
                             <li class="nav-item">
-                                <a href="javascript:;" class="nav-link">
+                                <a href="{{ route('admin.profile.show') }}" class="nav-link">
                                     <i data-feather="edit"></i>
-                                    <span>Edit Profile</span>
+                                    <span>@lang('Edit Profile')</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a href="javascript:;" class="nav-link">
-                                    <i data-feather="repeat"></i>
-                                    <span>Switch User</span>
+                                    <i data-feather="user"></i>
+                                    <span>@lang('Change Password')</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <form method="POST" action="{{ route('admin.logout') }}">
                                     @csrf
