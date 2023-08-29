@@ -7,7 +7,7 @@ use App\Http\Requests\Profile\ChangePasswordRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 
 class ChangePasswordController extends Controller
 {
@@ -33,9 +33,9 @@ class ChangePasswordController extends Controller
      * Update the specified resource in storage.
      *
      * @param  ChangePasswordRequest  $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(ChangePasswordRequest $request): Response
+    public function update(ChangePasswordRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         
